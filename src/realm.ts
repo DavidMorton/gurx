@@ -165,7 +165,7 @@ export class Realm {
     return () => {
       nodeSubscriptions.delete(subscription as Subscription<unknown>)
       if (nodeSubscriptions.size === 0) {
-        this.subscriptions.delete(nodeSubscriptions)
+        this.subscriptions.delete(node)
       }
     }
   }
