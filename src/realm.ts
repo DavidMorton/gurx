@@ -162,7 +162,12 @@ export class Realm {
     this.register(node)
     const nodeSubscriptions = this.subscriptions.getOrCreate(node)
     nodeSubscriptions.add(subscription as Subscription<unknown>)
-    return () => nodeSubscriptions.delete(subscription as Subscription<unknown>)
+    return () => {
+      nodeSubscriptions.delete(subscription as Subscription<unknown>)
+      if (nodeSubscriptions.size === 0) {
+        this.subscriptions.delete(nodeSubscriptions)
+      }
+    }
   }
 
   /**
